@@ -2,6 +2,7 @@ package HW1.code;
 
 public class DynamicArray <T>{
     private final int DEFAULT_SIZE = 10;
+    private final int DEFAULT_RATE = 2;
     private T[] array;
 
     public DynamicArray(){
@@ -30,7 +31,7 @@ public class DynamicArray <T>{
         if (newSize < 0){throwException();}
         T[] newArray = array.clone();
         array = (T[])new Object[newSize];
-        for(int i = 0; i < newSize; i++){
+        for(int i = 0; i < Math.min(newSize, newArray.length); i++){
             array[i] = newArray[i];
         }
     }
@@ -58,6 +59,20 @@ public class DynamicArray <T>{
     }
 
 
+    public void add(T value){
+        int count = 0;
+        int number = -1;
+        for(int i = 0; i < size(); i++){
+            if(array[i] != null){
+                count += 1;
+                number = i;
+            }}
+        if (number =    = size() - 1) {
+            resize(size() * DEFAULT_RATE);
+        }
+        number += 1;
+        set(number, value);
+    }
 
     public void throwException(){
         throw new ArithmeticException("ЭЭээээээ куда прёшь??!?!?!??!?");

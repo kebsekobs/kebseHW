@@ -67,7 +67,7 @@ public class DynamicArray <T>{
                 count += 1;
                 number = i;
             }}
-        if (number =    = size() - 1) {
+        if (number == size() - 1) {
             resize(size() * DEFAULT_RATE);
         }
         number += 1;

@@ -69,4 +69,24 @@ public class TestDynamicArray extends Assertions {
         dynamicArray.set(2, 5);
         assertEquals(-1, dynamicArray.findFirst(3));
     }
+
+    @Test
+    public void test_findLast(){
+        DynamicArray dynamicArray = new DynamicArray();
+        dynamicArray.resize(3);
+        dynamicArray.set(0, 5);
+        dynamicArray.set(1, 2);
+        dynamicArray.set(2, 5);
+        assertEquals(2, dynamicArray.findLast(5));
+    }
+
+    @Test
+    public void test_findLast_incorrect(){
+        DynamicArray dynamicArray = new DynamicArray();
+        dynamicArray.resize(3);
+        dynamicArray.set(0, 5);
+        dynamicArray.set(1, 2);
+        dynamicArray.set(2, 5);
+        assertEquals(-1, dynamicArray.findFirst(3));
+    }
 }

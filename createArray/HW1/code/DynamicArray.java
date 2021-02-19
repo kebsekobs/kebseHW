@@ -48,6 +48,17 @@ public class DynamicArray <T>{
         return -1;
     }
 
+    public int findLast(T value){
+        for(int i = size() - 1; i > -1; i--){
+            if(array[i] == value){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+
+
     public void throwException(){
         throw new ArithmeticException("ЭЭээээээ куда прёшь??!?!?!??!?");
     }

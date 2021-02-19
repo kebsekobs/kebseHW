@@ -39,6 +39,15 @@ public class DynamicArray <T>{
         return array.length;
     }
 
+    public int findFirst(T value){
+        for(int i = 0; i < size(); i++){
+            if(array[i] == value){
+                return i;
+            }
+        }
+        return -1;
+    }
+
     public void throwException(){
         throw new ArithmeticException("ЭЭээээээ куда прёшь??!?!?!??!?");
     }

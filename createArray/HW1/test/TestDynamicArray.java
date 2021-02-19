@@ -28,13 +28,25 @@ public class TestDynamicArray extends Assertions {
     public void test_get_exception(){
         DynamicArray dynamicArray = new DynamicArray();
         assertThrows(ArithmeticException.class, () -> dynamicArray.get(-1));
-        assertThrows(ArithmeticException.class, () -> dynamicArray.get(100));
+        assertThrows(ArithmeticException.class, () -> dynamicArray.get(10));
     }
 
     @Test
     public void test_set_exception(){
         DynamicArray dynamicArray = new DynamicArray();
         assertThrows(ArithmeticException.class, () -> dynamicArray.set(-1, 5));
-        assertThrows(ArithmeticException.class, () -> dynamicArray.set(100, 18));
+        assertThrows(ArithmeticException.class, () -> dynamicArray.set(10, 18));
+    }
+
+    @Test
+    public void test_init_with_int(){
+        DynamicArray dynamicArray = new DynamicArray(5);
+        assertEquals(5, dynamicArray.size());
+    }
+
+    @Test
+    public void test_init_without_correct_int(){
+        DynamicArray dynamicArray = new DynamicArray(-5);
+        assertEquals(10, dynamicArray.size());
     }
 }

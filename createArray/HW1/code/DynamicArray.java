@@ -6,15 +6,23 @@ public class DynamicArray <T>{
 
     public DynamicArray(){
         array = (T[])new Object[DEFAULT_SIZE];
+
+    }
+
+    public DynamicArray(int firstSize){
+        if (firstSize > -1) {
+            array = (T[]) new Object[firstSize];
+        }
+        else {array = (T[])new Object[DEFAULT_SIZE];}
     }
 
     public T get(int index){
-        if(size() < index | index < 0){throwException();}
+        if(size() <= index | index < 0){throwException();}
         return array[index];
     }
 
     public void set(int index,T value){
-        if(size() < index | index < 0){throwException();}
+        if(size() <= index | index < 0){throwException();}
         array[index] = value;
     }
 

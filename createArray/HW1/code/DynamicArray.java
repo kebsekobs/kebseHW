@@ -60,18 +60,37 @@ public class DynamicArray <T>{
 
 
     public void add(T value){
-        int count = 0;
         int number = -1;
         for(int i = 0; i < size(); i++){
             if(array[i] != null){
-                count += 1;
                 number = i;
             }}
         if (number == size() - 1) {
-            resize(size() * DEFAULT_RATE);
+            resize(size() * DEFAULT_RATE + 1);
         }
         number += 1;
         set(number, value);
+    }
+
+    public void insert(int index, T value){
+        int number = -1;
+        if(array[index] == null){
+            array[index] = value;
+        }
+        else{
+            int oldSize = size();
+            for(int i = 0; i < size(); i++){
+                if(array[i] != null){
+                    number = i;
+                }}
+            if (number == size() - 1) {
+                resize(size() * DEFAULT_RATE + 1);
+            }
+            for (int i = oldSize; i > index; i--){
+                array[i] = array[i - 1];
+            }
+            array[index] = value;
+        }
     }
 
     public void throwException(){

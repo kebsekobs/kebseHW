@@ -110,8 +110,24 @@ public class TestDynamicArray extends Assertions {
         dynamicArray.add(4);
         assertEquals(3, dynamicArray.get(3));
         assertEquals(4, dynamicArray.get(4));
-        assertEquals(8, dynamicArray.size());
+        assertEquals(9, dynamicArray.size());
         assertNull(dynamicArray.get(7));
+
+    }
+
+    @Test
+    public void test_insert(){
+        DynamicArray dynamicArray = new DynamicArray();
+        dynamicArray.resize(3);
+        dynamicArray.set(0, 5);
+        dynamicArray.set(2, 5);
+        assertNull(dynamicArray.get(1));
+        dynamicArray.insert(1, 5);
+        dynamicArray.insert(2,28);
+        assertEquals(5, dynamicArray.get(1));
+        assertEquals(28, dynamicArray.get(2));
+        assertEquals(5, dynamicArray.get(3));
+        assertEquals(7, dynamicArray.size());
 
     }
 }

@@ -9,7 +9,7 @@ public class TestDynamicArray extends Assertions {
     public void test_resize_and_size(){
         DynamicArray dynamicArray = new DynamicArray();
         dynamicArray.resize(1);
-        assertEquals(1, dynamicArray.size());
+        assertEquals(1, dynamicArray.capacity());
     }
     @Test
     public void test_set_and_get(){
@@ -41,13 +41,13 @@ public class TestDynamicArray extends Assertions {
     @Test
     public void test_init_with_int(){
         DynamicArray dynamicArray = new DynamicArray(5);
-        assertEquals(5, dynamicArray.size());
+        assertEquals(5, dynamicArray.capacity());
     }
 
     @Test
     public void test_init_without_correct_int(){
         DynamicArray dynamicArray = new DynamicArray(-5);
-        assertEquals(10, dynamicArray.size());
+        assertEquals(10, dynamicArray.capacity());
     }
 
     @Test
@@ -110,7 +110,7 @@ public class TestDynamicArray extends Assertions {
         dynamicArray.add(4);
         assertEquals(3, dynamicArray.get(3));
         assertEquals(4, dynamicArray.get(4));
-        assertEquals(9, dynamicArray.size());
+        assertEquals(9, dynamicArray.capacity());
         assertNull(dynamicArray.get(7));
 
     }
@@ -124,10 +124,26 @@ public class TestDynamicArray extends Assertions {
         assertNull(dynamicArray.get(1));
         dynamicArray.insert(1, 5);
         dynamicArray.insert(2,28);
+        dynamicArray.insert(28,999999);
         assertEquals(5, dynamicArray.get(1));
         assertEquals(28, dynamicArray.get(2));
         assertEquals(5, dynamicArray.get(3));
-        assertEquals(7, dynamicArray.size());
+        assertEquals(999999, dynamicArray.get(28));
+        assertEquals(29, dynamicArray.capacity());
+        assertThrows(ArithmeticException.class, () -> dynamicArray.insert(-1, 5));
+    }
 
+    @Test
+    public void test_delete(){
+        DynamicArray dynamicArray = new DynamicArray(3);
+        dynamicArray.set(0, 5);
+        dynamicArray.set(2, 5);
+        dynamicArray.delete(2);
+        assertNull(dynamicArray.get(2));
+        assertEquals(3, dynamicArray.capacity());
+        assertEquals(1, dynamicArray.size());
+
+        assertThrows(ArithmeticException.class, () -> dynamicArray.delete(-1));
+        assertThrows(ArithmeticException.class, () -> dynamicArray.delete(100));
     }
 }

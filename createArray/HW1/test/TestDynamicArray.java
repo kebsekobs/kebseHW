@@ -37,4 +37,11 @@ public class TestDynamicArray extends Assertions {
         assertThrows(ArithmeticException.class, () -> dynamicArray.set(-1, 5));
         assertThrows(ArithmeticException.class, () -> dynamicArray.set(100, 18));
     }
+
+    @Test
+    public void get_IndexEqualSize_ThrowsArithmeticException()
+    {
+        DynamicArray<Integer> arr = new DynamicArray<>();
+        assertThrows(ArithmeticException.class, () -> arr.set(arr.size(), 100));
+    }
 }

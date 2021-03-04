@@ -25,4 +25,21 @@ public class DoubleLinkedListTest  extends Assertions {
         assertEquals(26, doubleLinkedList.getLast());
     }
 
+
+    @Test
+    public void test_delete(){
+        DoubleLinkedList doubleLinkedList = new DoubleLinkedList();
+        doubleLinkedList.addFirst(15);
+        doubleLinkedList.addLast(21);
+        doubleLinkedList.insert(doubleLinkedList.search(15), 26);
+        assertEquals(26, doubleLinkedList.getValue(1));
+        doubleLinkedList.delete(doubleLinkedList.getElement(1));
+        assertEquals(21, doubleLinkedList.getValue(1));
+        assertEquals(21, doubleLinkedList.getLast());
+        doubleLinkedList.deleteLast();
+        assertEquals(15, doubleLinkedList.getLast());
+        assertEquals(15, doubleLinkedList.getFirst());
+        doubleLinkedList.deleteFirst();
+        assertNull(doubleLinkedList.getFirst());
+    }
 }

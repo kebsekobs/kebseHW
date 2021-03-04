@@ -6,8 +6,8 @@ public class DoubleLinkedListElement <T> {
     T value;
 
     public DoubleLinkedListElement(DoubleLinkedListElement Prev, DoubleLinkedListElement Next, T Value) {
-        this.prev = Prev;
-        this.next = Next;
-        this.value = Value;
+        prev = Prev;
+        next = Next;
+        value = Value;
     }
 }

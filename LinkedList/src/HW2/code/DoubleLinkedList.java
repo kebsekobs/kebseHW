@@ -39,6 +39,14 @@ public class DoubleLinkedList<T>{
         return first.value;
     }
 
+    public DoubleLinkedListElement<T> getHead(){
+        return first;
+    }
+
+    public boolean isEmpty() {
+        return first == null;
+    }
+
     public void insert(DoubleLinkedListElement<T> element, T newElement) {
         DoubleLinkedListElement<T> node = new DoubleLinkedListElement<T>(element, element.next, newElement);
         node.next = element.next;

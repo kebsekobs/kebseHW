@@ -16,6 +16,7 @@ public class StackDoubleLinkedList<T> {
 
     public void push(T element){
         data.addFirst(element);
+        top = data.getHead();
     }
 
     public T pop(){

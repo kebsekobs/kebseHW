@@ -36,6 +36,10 @@ public class QueueDynamicArray<T> {
         if(data.get(head) != null){
             data.set(head, null);
             if(head == 0){ head = data.capacity() - 1;}
+            else {
+                tail = head;
+                head -= 1;
+            }
 
         }
         else {throwNullException();}

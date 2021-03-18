@@ -36,7 +36,22 @@ public class TestQueueDynamicArray extends Assertions{
         queueDynamicArray.dequeue();
         queueDynamicArray.dequeue();
         assertThrows(NullPointerException.class, () -> queueDynamicArray.dequeue());
+    }
 
+    public void test_peek() {
+        QueueDynamicArray queueDynamicArray = new QueueDynamicArray(5);
+
+        assertThrows(NullPointerException.class, () -> queueDynamicArray.peek());
+        queueDynamicArray.enqueue(1);
+        assertEquals(1, queueDynamicArray.peek());
+        queueDynamicArray.enqueue(2);
+        assertEquals(2, queueDynamicArray.peek());
+        queueDynamicArray.enqueue(23);
+        assertEquals(23, queueDynamicArray.peek());
+        queueDynamicArray.enqueue(25);
+        assertEquals(25, queueDynamicArray.peek());
+        queueDynamicArray.enqueue(28);
+        assertEquals(28, queueDynamicArray.peek());
     }
 
 

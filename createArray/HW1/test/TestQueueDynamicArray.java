@@ -23,4 +23,22 @@ public class TestQueueDynamicArray extends Assertions{
         assertThrows(ArithmeticException.class, () -> queueDynamicArray.enqueue(999));
     }
 
+    public void test_dequeue(){
+        QueueDynamicArray queueDynamicArray = new QueueDynamicArray(5);
+        queueDynamicArray.enqueue(1);
+        queueDynamicArray.enqueue(2);
+        queueDynamicArray.enqueue(23);
+        queueDynamicArray.enqueue(25);
+        queueDynamicArray.enqueue(28);
+        queueDynamicArray.dequeue();
+        queueDynamicArray.dequeue();
+        queueDynamicArray.dequeue();
+        queueDynamicArray.dequeue();
+        queueDynamicArray.dequeue();
+        assertThrows(NullPointerException.class, () -> queueDynamicArray.dequeue());
+
+    }
+
+
+
 }

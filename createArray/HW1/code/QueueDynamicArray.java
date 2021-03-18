@@ -18,7 +18,7 @@ public class QueueDynamicArray<T> {
                 }
                 else {
                     data.set(0, value);
-                    head = 0;
+
                     tail = 1;
                 }
             }
@@ -27,7 +27,7 @@ public class QueueDynamicArray<T> {
             }
             else {
                 data.set(tail, value);
-                head = tail;
+                if(data.get(head) == null){head = tail;}
                 tail += 1;
             }
     }
@@ -35,10 +35,9 @@ public class QueueDynamicArray<T> {
     public void dequeue(){
         if(data.get(head) != null){
             data.set(head, null);
-            if(head == 0){ head = data.capacity() - 1;}
+            if(head == data.capacity() - 1){ head = 0;}
             else {
-                tail = head;
-                head -= 1;
+                head += 1;
             }
 
         }
@@ -48,6 +47,14 @@ public class QueueDynamicArray<T> {
     public T peek(){
         if(data.get(head) != null){return data.get(head);}
         else{throwNullException(); return null;}
+    }
+
+    public int size(){
+        if(data.get(head) == null){return  0;}
+        else if(tail >= head){
+            return tail - head;
+        }
+        else{return tail + (data.capacity() - head);}
     }
 
 

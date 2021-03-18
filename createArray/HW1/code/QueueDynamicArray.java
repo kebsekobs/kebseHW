@@ -45,6 +45,11 @@ public class QueueDynamicArray<T> {
         else {throwNullException();}
     }
 
+    public T peek(){
+        if(data.get(head) != null){return data.get(head);}
+        else{throwNullException(); return null;}
+    }
+
 
 
 

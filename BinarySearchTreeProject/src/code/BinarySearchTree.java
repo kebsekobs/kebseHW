@@ -19,7 +19,23 @@ public class BinarySearchTree {
             return node;}
         return maximum(node.right);}
 
-        
+    public Node next(Node node){
+            if(node.right != null){
+                return minimum(node.right);}
+            Node anotherNode = node.parent;
+            while( anotherNode != null && node == anotherNode.right){
+                node = anotherNode;
+                anotherNode = anotherNode.parent;}
+            return anotherNode;}
+
+    public Node prev(Node node){
+        if(node.left != null){
+            return maximum(node.left);}
+        Node anotherNode = node.parent;
+        while( anotherNode != null && node == anotherNode.left){
+            node = anotherNode;
+            anotherNode = anotherNode.parent;}
+        return anotherNode;}
 
     public boolean insert(Integer key, String value) {
         if (root == null) {

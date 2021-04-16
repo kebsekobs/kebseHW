@@ -9,6 +9,18 @@ public class BinarySearchTree {
       return search(node.left, key);
    else{ return search(node.right, key);}}
 
+    public Node minimum(Node node){
+            if (node.left == null){
+            return node;}
+    return minimum(node.left);}
+
+    public Node maximum(Node node){
+        if (node.right == null){
+            return node;}
+        return maximum(node.right);}
+
+        
+
     public boolean insert(Integer key, String value) {
         if (root == null) {
             root = new Node(key, value);

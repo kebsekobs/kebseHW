@@ -2,6 +2,13 @@ package code;
 public class BinarySearchTree {
     private Node root = null;
 
+    public Node search(Node node, Integer key){
+            if (node == null | key.equals(node.key)){
+      return node;}
+   if (key < node.key)
+      return search(node.left, key);
+   else{ return search(node.right, key);}}
+
     public boolean insert(Integer key, String value) {
         if (root == null) {
             root = new Node(key, value);
@@ -11,7 +18,7 @@ public class BinarySearchTree {
         }
     }
 
-    
+
     private boolean insert(Node node, Integer key, String value) {
         if (key.equals(node.key)) {
             return false;

@@ -60,4 +60,22 @@ public class Tree {
         }
         return cParent;
     }
+
+    public Node search(String key) {
+        if (root == null)
+            return null;
+        return searchRec(root, key);
+    }
+
+    private static Node searchRec(Node root, String key) {
+        if (root == null)
+            return null;
+        if (root.getKey().equals(key))
+            return root;
+        if (root.getKey().compareTo(key) < 0)
+            return searchRec(root.getRight(), key);
+        return searchRec(root.getLeft(), key);
+    }
+
+    
 }

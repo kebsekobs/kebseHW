@@ -77,5 +77,48 @@ public class Tree {
         return searchRec(root.getLeft(), key);
     }
 
-    
+    public void insert(String key) {
+        if (root == null)
+            root = new Node(key, null);
+        else {
+            Boolean heightIncrease = false;
+            insertRec(root, key, heightIncrease);
+        }
+    }
+
+    private static void insertRec(Node root, String key, Boolean heightIncrease) {
+        if (root.getKey().compareTo(key) < 0) {
+            if (root.getRight() != null) {
+                insertRec(root.getRight(), key, heightIncrease);
+                if (heightIncrease) {
+                    if (root.getBalance() == -1) {
+                        root.setBalance(0);
+                        heightIncrease = false;
+                    }
+                    else if(root.getBalance() == 0) {
+                        root.setBalance(1);
+                    }
+                    else {
+                        if (root.getRight().getBalance() == 1) {
+                            Node right = smallRotateLeft(root);
+                            root.setBalance(-1);
+                            right.setBalance(-1);
+                            heightIncrease = false;
+                        }
+                    }
+                }
+            }
+            else {
+                Node node = new Node(key, root);
+                if (root.getBalance() == 0)
+                    heightIncrease = true;
+                root.setBalance(root.getBalance() + 1);
+            }
+        }
+        else {
+
+        }
+    }
+
+
 }

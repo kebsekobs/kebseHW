@@ -120,5 +120,53 @@ public class Tree {
         }
     }
 
+    private static Node smallRotateLeft(Node root) {
+        Node right = root.getRight();
+        root.setRight(right.getLeft());
+        if(root.getParent() != null && root.getParent().getRight() == root) {
+            root.getParent().setRight(right);
+        }
+        else if (root.getParent() != null) {
+            root.getParent().setLeft(right);
+        }
+        right.setLeft(root);
+
+        return right;
+    }
+
+    private static Node smallRotateRight(Node root) {
+        Node left = root.getLeft();
+        root.setLeft(left.getRight());
+        if(root.getParent() != null && root.getParent().getRight() == root) {
+            root.getParent().setRight(left);
+        }
+        else if (root.getParent() != null) {
+            root.getParent().setLeft(left);
+        }
+        left.setRight(root);
+
+        return left;
+    }
+
+    private static Node bigRotateLeft(Node root) {
+        smallRotateRight(root.getRight());
+        return smallRotateLeft(root);
+    }
+
+    private static Node bigRotateRight(Node root) {
+        smallRotateLeft(root.getLeft());
+        return smallRotateRight(root);
+    }
+
+    public void delete(String key)
+    {
+        if (root == null)
+            return;
+        else {
+            Boolean heightIncrease = false;
+            insertDel(root, key, heightIncrease);
+        }
+    }
+
 
 }

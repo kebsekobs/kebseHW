@@ -31,5 +31,33 @@ public class Tree {
         return root;
     }
 
-    
+    public static Node getSuccessor(Node item) {
+        if(item == null)
+            throw new IllegalArgumentException("Argument can't be null");
+        if(item.getRight() != null)
+            return getMinRec(item.getRight());
+
+        Node cParent = item.getParent();
+        Node current = item;
+        while (cParent != null && cParent.getLeft() == current) {
+            current = cParent;
+            cParent = cParent.getParent();
+        }
+        return cParent;
+    }
+
+    public Node getPredecessor(Node item) {
+        if(item == null)
+            throw new IllegalArgumentException("Argument can't be null");
+        if(item.getLeft() != null)
+            return getMaxRec(item.getLeft());
+
+        Node cParent = item.getParent();
+        Node current = item;
+        while (cParent != null && cParent.getRight() == current) {
+            current = cParent;
+            cParent = cParent.getParent();
+        }
+        return cParent;
+    }
 }

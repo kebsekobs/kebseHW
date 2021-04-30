@@ -23,7 +23,19 @@ public class Node {
         return right;
     }
 
-
+    public void setLeft(Node nLeft) {
+        this.left = nLeft;
+        if (nLeft != null)
+            nLeft.parent = this;
+    }
+    public void setRight(Node nRight) {
+        this.right = nRight;
+        if (nRight != null)
+            nRight.parent = this;
+    }
+    public void setBalance(int balance) {
+        this.balance = balance;
+    }
 
 
 

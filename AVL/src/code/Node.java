@@ -13,7 +13,15 @@ public class Node {
         this.balance = 0;
     }
 
-    
+    public Node getParent() {
+        return parent;
+    }
+    public Node getLeft() {
+        return left;
+    }
+    public Node getRight() {
+        return right;
+    }
 
 
 

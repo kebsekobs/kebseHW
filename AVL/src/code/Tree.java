@@ -78,18 +78,16 @@ public class Tree {
     }
 
     public void insert(String key) {
-        if (root == null){
+        if (root == null)
             root = new Node(key, null);
-            Boolean heightIncrease = true;}
         else {
-            Boolean heightIncrease = true;
+            Boolean heightIncrease = false;
             insertRec(root, key, heightIncrease);
         }
     }
 
     private static void insertRec(Node root, String key, Boolean heightIncrease) {
         if (root.getKey().compareTo(key) < 0) {
-            root.setRight();
             if (root.getRight() != null) {
                 insertRec(root.getRight(), key, heightIncrease);
                 if (heightIncrease) {
@@ -117,36 +115,8 @@ public class Tree {
                 root.setBalance(root.getBalance() + 1);
             }
         }
-        else if(root.getKey().compareTo(key) > 0){
-            if (root.getLeft() != null) {
-                insertRec(root.getLeft(), key, heightIncrease);
-                if (heightIncrease) {
-                    if (root.getBalance() == 1) {
-                        root.setBalance(0);
-                        heightIncrease = false;
-                    }
-                    else if(root.getBalance() == 0) {
-                        root.setBalance(-1);
-                    }
-                    else {
-                        if (root.getLeft().getBalance() == -1) {
-                            Node left = smallRotateRight(root);
-                            root.setBalance(-1);
-                            left.setBalance(-1);
-                            heightIncrease = false;
-                        }
-                    }
-                }
-            }
-            else {
-                Node node = new Node(key, root);
-                if (root.getBalance() == 0)
-                    heightIncrease = true;
-                root.setBalance(root.getBalance() - 1);
-            }
-        }
         else {
-            throw new RuntimeException("Duplicate Key!");
+
         }
     }
 
@@ -190,69 +160,13 @@ public class Tree {
 
     public void delete(String key)
     {
-        deleteRec(root, key, false);
+        if (root == null)
+            return;
+        else {
+            Boolean heightIncrease = false;
+            insertDel(root, key, heightIncrease);
+        }
     }
 
-    public void deleteRec(Node root, String key, boolean heightDecrease){
-        if (root == null) {
-            return;
-        }
-        if (root.getKey().compareTo(key) < 0) {
-            if (root.getRight() != null) {
-                deleteRec(root.getRight(), key, heightDecrease);
-                if (heightDecrease) {
-                    if (root.getBalance() == 1) {
-                        root.setBalance(0);
-                        heightDecrease = false;
-                    }
-                    else if(root.getBalance() == 0) {
-                        root.setBalance(-1);
-                    }
-                    else {
-                        if (root.getRight().getBalance() == -1) {
-                            Node right = smallRotateLeft(root);
-                            root.setBalance(1);
-                            right.setBalance(1);
-                            heightDecrease = false;
-                        }
-                    }
-                }
-            }
-            else {
-                Node node = new Node(key, root);
-                if (root.getBalance() == 0)
-                    heightDecrease = true;
-                root.setBalance(root.getBalance() + 1);
-            }
-        }
-        else if (root.getKey().compareTo(key) > 0) {
-            if (root.getRight() != null) {
-                insertRec(root.getRight(), key, heightDecrease);
-                if (heightDecrease) {
-                    if (root.getBalance() == -1) {
-                        root.setBalance(0);
-                        heightDecrease = false;
-                    }
-                    else if(root.getBalance() == 0) {
-                        root.setBalance(1);
-                    }
-                    else {
-                        if (root.getRight().getBalance() == 1) {
-                            Node right = smallRotateLeft(root);
-                            root.setBalance(-1);
-                            right.setBalance(-1);
-                            heightDecrease = false;
-                        }
-                    }
-                }
-            }
-            else {
-                Node node = new Node(key, root);
-                if (root.getBalance() == 0)
-                    heightDecrease = true;
-                root.setBalance(root.getBalance() + 1);
-            }
-        }
-    }
 
 }

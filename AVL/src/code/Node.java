@@ -1,20 +1,14 @@
 package code;
 
 public class Node {
-    private Node parent, left, right;
+    private Node left, right;
     private String key;
-    private int balance;
+    private int height;
 
 
-    public Node(String key, Node parent) {
+    public Node(String key) {
         this.key = key;
-        this.parent = parent;
         this.left = this.right = null;
-        this.balance = 0;
-    }
-
-    public Node getParent() {
-        return parent;
     }
 
     public Node getLeft() {
@@ -27,29 +21,21 @@ public class Node {
 
     public void setLeft(Node nLeft) {
         this.left = nLeft;
-        if (nLeft != null)
-            nLeft.parent = this;
     }
 
     public void setRight(Node nRight) {
         this.right = nRight;
-        if (nRight != null)
-            nRight.parent = this;
-    }
-
-    public void setBalance(int balance) {
-        this.balance = balance;
     }
 
     public String getKey() {
         return key;
     }
 
-    public int getBalance() {
-        return balance;
+    public void setKey(String key) {
+        this.key = key;
     }
 
+    public int getHeight(){return height;}
 
-
-
+    public void setHeight(int height){this.height = height;}
 }

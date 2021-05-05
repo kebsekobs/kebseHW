@@ -31,36 +31,6 @@ public class Tree {
         return root;
     }
 
-    public static Node getSuccessor(Node item) {
-        if (item == null)
-            throw new IllegalArgumentException("Argument can't be null");
-        if (item.getRight() != null)
-            return getMinRec(item.getRight());
-
-        Node cParent = item.getParent();
-        Node current = item;
-        while (cParent != null && cParent.getLeft() == current) {
-            current = cParent;
-            cParent = cParent.getParent();
-        }
-        return cParent;
-    }
-
-    public Node getPredecessor(Node item) {
-        if (item == null)
-            throw new IllegalArgumentException("Argument can't be null");
-        if (item.getLeft() != null)
-            return getMaxRec(item.getLeft());
-
-        Node cParent = item.getParent();
-        Node current = item;
-        while (cParent != null && cParent.getRight() == current) {
-            current = cParent;
-            cParent = cParent.getParent();
-        }
-        return cParent;
-    }
-
     public Node search(String key) {
         if (root == null)
             return null;
@@ -77,166 +47,110 @@ public class Tree {
         return searchRec(root.getLeft(), key);
     }
 
-    public void insert(String key) {
-        if (root == null)
-            root = new Node(key, null);
+    public int height(){
+        if(root == null){return -1;}
+        else{return root.getHeight();}
+    }
+    private int height(Node node){
+        if(node == null){return -1;}
+        else{return node.getHeight();}
+    }
+
+    private void updateHeight(Node node){
+        node.setHeight(1 + Math.max(height(node.getLeft()), height(node.getRight())));
+    }
+
+    public int getBalance(Node node) {
+        if (node == null) {
+            return 0;
+        }
         else {
-            Boolean heightIncrease = false;
-            insertRec(root, key, heightIncrease);
+            return height(node.getRight()) - height(node.getLeft());
         }
     }
 
-    private static void insertRec(Node root, String key, Boolean heightIncrease) {
-        if (root.getKey().compareTo(key) < 0) {
-            if (root.getRight() != null) {
-                insertRec(root.getRight(), key, heightIncrease);
-                if (heightIncrease) {
-                    if (root.getBalance() == -1) {
-                        root.setBalance(0);
-                        heightIncrease = false;
-                    } else if (root.getBalance() == 0) {
-                        root.setBalance(1);
-                    } else {
-                        if (root.getRight().getBalance() == 1) {
-                            Node right = smallRotateLeft(root);
-                            root.setBalance(-1);
-                            right.setBalance(-1);
-                            heightIncrease = false;
-                        }
-                    }
-                }
+    private Node rebalance(Node node) {
+        updateHeight(node);
+        int balance = getBalance(node);
+        if (balance > 1) {
+            if (height(node.getRight().getRight()) > height(node.getRight().getLeft())) {
+                node = rotateLeft(node);
             } else {
-                Node node = new Node(key, root);
-                if (root.getBalance() == 0)
-                    heightIncrease = true;
-                root.setBalance(root.getBalance() + 1);
+                node.setRight(rotateRight(node.getRight()));
+                node = rotateLeft(node);
             }
-        } else if (root.getKey().compareTo(key) > 0) {
-            if (root.getLeft() != null) {
-                insertRec(root.getLeft(), key, heightIncrease);
-                if (heightIncrease) {
-                    if (root.getBalance() == 1) {
-                        root.setBalance(0);
-                        heightIncrease = false;
-                    } else if (root.getBalance() == 0) {
-                        root.setBalance(-1);
-                    } else {
-                        if (root.getLeft().getBalance() == -1) {
-                            Node left = smallRotateRight(root);
-                            root.setBalance(-1);
-                            left.setBalance(-1);
-                            heightIncrease = false;
-                        }
-                    }
-                }
+        } else if (balance < -1) {
+            if (height(node.getLeft().getLeft()) > height(node.getLeft().getRight())) {
+                node = rotateRight(node);
             } else {
-                Node node = new Node(key, root);
-                if (root.getBalance() == 0)
-                    heightIncrease = true;
-                root.setBalance(root.getBalance() - 1);
+                node.setLeft(rotateLeft(node.getLeft()));
+                node = rotateRight(node);
             }
+        }
+        return node;
+    }
+
+    public void insert(String key) {
+        root = insertRec(root, key);
+    }
+
+    private Node insertRec(Node node, String key) {
+        if(node == null){return new Node(key);}
+        else if (node.getKey().compareTo(key) > 0) {
+            node.setLeft(insertRec(node.getLeft(), key));
+        } else if (node.getKey().compareTo(key) < 0) {
+            node.setRight(insertRec(node.getRight(), key));
         } else {
             throw new RuntimeException("Duplicate Key!");
         }
+        return rebalance(node);
     }
 
-    private static Node smallRotateLeft(Node root) {
-        Node right = root.getRight();
-        root.setRight(right.getLeft());
-        if (root.getParent() != null && root.getParent().getRight() == root) {
-            root.getParent().setRight(right);
-        } else if (root.getParent() != null) {
-            root.getParent().setLeft(right);
-        }
-        right.setLeft(root);
-
-        return right;
+    private Node rotateRight(Node node) {
+        Node nNode = node.getLeft();
+        Node anotherNode = nNode.getRight();
+        nNode.setRight(node);
+        node.setLeft(anotherNode);
+        updateHeight(node);
+        updateHeight(nNode);
+        return nNode;
     }
 
-    private static Node smallRotateRight(Node root) {
-        Node left = root.getLeft();
-        root.setLeft(left.getRight());
-        if (root.getParent() != null && root.getParent().getRight() == root) {
-            root.getParent().setRight(left);
-        } else if (root.getParent() != null) {
-            root.getParent().setLeft(left);
-        }
-        left.setRight(root);
-
-        return left;
-    }
-
-    private static Node bigRotateLeft(Node root) {
-        smallRotateRight(root.getRight());
-        return smallRotateLeft(root);
-    }
-
-    private static Node bigRotateRight(Node root) {
-        smallRotateLeft(root.getLeft());
-        return smallRotateRight(root);
+    private Node rotateLeft(Node node) {
+        Node nNode = node.getRight();
+        Node anotherNode = nNode.getLeft();
+        nNode.setLeft(node);
+        node.setRight(anotherNode);
+        updateHeight(node);
+        updateHeight(nNode);
+        return nNode;
     }
 
     public void delete(String key) {
-        if (root == null)
-            return;
-        else {
-            Boolean heightDecrease = false;
-            deleteRec(root, key, heightDecrease);
-        }
+            root = deleteRec(root, key);
     }
 
-    public void deleteRec(Node root, String key, boolean heightDecrease) {
-        if (root == null) {
-            return;
+    private Node deleteRec(Node node, String key) {
+        if(node == null){ return node;}
+        else if (node.getKey().compareTo(key) > 0) {
+            node.setLeft(deleteRec(node.getLeft(), key));
+        } else if (node.getKey().compareTo(key) < 0) {
+            node.setRight(deleteRec(node.getRight(), key));
         }
-        if (root.getKey().compareTo(key) < 0) {
-            if (root.getRight() != null) {
-                deleteRec(root.getRight(), key, heightDecrease);
-                if (heightDecrease) {
-                    if (root.getBalance() == 1) {
-                        root.setBalance(0);
-                        heightDecrease = false;
-                    } else if (root.getBalance() == 0) {
-                        root.setBalance(-1);
-                    } else {
-                        if (root.getRight().getBalance() == -1) {
-                            Node right = smallRotateLeft(root);
-                            root.setBalance(1);
-                            right.setBalance(1);
-                            heightDecrease = false;
-                        }
-                    }
-                }
-            } else {
-                Node node = new Node(key, root);
-                if (root.getBalance() == 0)
-                    heightDecrease = true;
-                root.setBalance(root.getBalance() + 1);
+        else {
+            if (node.getLeft() == null || node.getRight() == null) {
+                if(node.getLeft() == null){node = node.getRight();}
+                else{node = node.getLeft();}
             }
-        } else if (root.getKey().compareTo(key) > 0) {
-            if (root.getRight() != null) {
-                insertRec(root.getRight(), key, heightDecrease);
-                if (heightDecrease) {
-                    if (root.getBalance() == -1) {
-                        root.setBalance(0);
-                        heightDecrease = false;
-                    } else if (root.getBalance() == 0) {
-                        root.setBalance(1);
-                    } else {
-                        if (root.getRight().getBalance() == 1) {
-                            Node right = smallRotateLeft(root);
-                            root.setBalance(-1);
-                            right.setBalance(-1);
-                            heightDecrease = false;
-                        }
-                    }
-                }
-            } else {
-                Node node = new Node(key, root);
-                if (root.getBalance() == 0)
-                    heightDecrease = true;
-                root.setBalance(root.getBalance() + 1);
+            else {
+                Node mostLeftChild = getMinRec(node.getRight());
+                node.setKey(mostLeftChild.getKey());
+                node.setRight(deleteRec(node.getRight(), node.getKey()));
             }
         }
+        if (node != null) {
+            node = rebalance(node);
+        }
+        return node;
     }
 }

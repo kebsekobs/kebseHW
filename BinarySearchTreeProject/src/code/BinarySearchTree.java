@@ -4,38 +4,35 @@ public class BinarySearchTree {
     private Node root = null;
 
     public Node search(Node node, String key){
-            if (node == null | key.equals(node.getKey())){
-      return node;}
-   if (key.compareTo(node.getKey()) < 0){
-      return search(node.left, key);}
-   else{ return search(node.right, key);}}
+            if (node == null | key.equals(node.getKey())){return node;}
+            if (key.compareTo(node.getKey()) < 0){return search(node.getLeft(), key);}
+            else{ return search(node.getRight(), key);}}
 
     public Node minimum(Node node){
-            if (node.left == null){
-            return node;}
-    return minimum(node.left);}
+            if (node.getLeft() == null){ return node;}
+            return minimum(node.getLeft());}
 
     public Node maximum(Node node){
-        if (node.right == null){
-            return node;}
-        return maximum(node.right);}
+        if (node.getRight() == null){ return node;}
+        return maximum(node.getRight());}
 
     public Node next(Node node){
-            if(node.right != null){
-                return minimum(node.right);}
-            Node anotherNode = node.parent;
-            while( anotherNode != null && node == anotherNode.right){
+            if(node.getRight() != null){
+                return minimum(node.getRight());}
+            Node anotherNode = node.getParent();
+            while( anotherNode != null && node == anotherNode.getRight()){
                 node = anotherNode;
-                anotherNode = anotherNode.parent;}
+                anotherNode = anotherNode.getParent();
+            }
             return anotherNode;}
 
     public Node prev(Node node){
-        if(node.left != null){
-            return maximum(node.left);}
-        Node anotherNode = node.parent;
-        while( anotherNode != null && node == anotherNode.left){
+        if(node.getLeft() != null){
+            return maximum(node.getLeft());}
+        Node anotherNode = node.getParent();
+        while( anotherNode != null && node == anotherNode.getLeft()){
             node = anotherNode;
-            anotherNode = anotherNode.parent;}
+            anotherNode = anotherNode.getParent();}
         return anotherNode;}
 
 

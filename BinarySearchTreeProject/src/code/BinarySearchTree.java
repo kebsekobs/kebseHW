@@ -1,15 +1,13 @@
 package code;
 
-import org.jetbrains.annotations.NotNull;
-
 public class BinarySearchTree {
     private Node root = null;
 
-    public Node search(Node node, @NotNull Integer key){
-            if (node == null | key.equals(node.key)){
+    public Node search(Node node, String key){
+            if (node == null | key.equals(node.getKey())){
       return node;}
-   if (key < node.key)
-      return search(node.left, key);
+   if (key.compareTo(node.getKey()) < 0){
+      return search(node.left, key);}
    else{ return search(node.right, key);}}
 
     public Node minimum(Node node){
@@ -42,32 +40,32 @@ public class BinarySearchTree {
 
 
 
-    public boolean insert(Integer key, String value) {
+    public boolean insert(String key) {
         if (root == null) {
-            root = new Node(key, value);
+            root = new Node(key, null);
             return true;
         } else {
-            return insert(root, key, value);
+            return insertRec(root, key);
         }
     }
 
 
-    private boolean insert(Node node, Integer key, String value) {
-        if (key.equals(node.key)) {
+    private boolean insertRec(Node node, String key) {
+        if (key.equals(node.getKey())) {
             return false;
-        } else if (key < node.key) {
-            if (node.left == null) {
-                node.left = new Node(key, value);
+        } else if (key.compareTo(node.getKey()) < 0) {
+            if (node.getLeft() == null) {
+                node.setLeft(new Node(key, node));
                 return true;
             } else {
-                return insert(node.left, key, value);
+                return insertRec(node.getLeft(), key);
             }
-        } else if (key > node.key) {
-            if (node.right == null) {
-                node.right = new Node(key, value);
+        } else if (key.compareTo(node.getKey()) > 0) {
+            if (node.getRight() == null) {
+                node.setRight(new Node(key, node));
                 return true;
             } else {
-                return insert(node.right, key, value);
+                return insertRec(node.getRight(), key);
             }
         }
         return false;

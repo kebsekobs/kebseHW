@@ -68,38 +68,37 @@ public class BinarySearchTree {
         return false;
     }
 
+    public void delete(String key){
+        root = deleteRec(root, key);
+    }
 
-    public void delete(Node node){
-    Node parent = node.parent;
-   if (node.left == null && node.right == null){
-            if (parent.left == node){
-    parent.left = null;}
-            if (parent.right == node){
-    parent.right = null;}}
-            else if (node.left == null | node.right == null){
-            if (node.left == null){
-            if (parent.left == node){
-                parent.left = node.right;}
-            else{
-                parent.right = node.right;}
-            node.right.parent = parent;}
+
+    public Node deleteRec(Node node, String key){
+    Node parent = node.getParent();
+        if (node.getLeft() == null && node.getRight() == null){
+            if (parent.getLeft() == node){parent.setLeft(null);}
+            if (parent.getRight() == node){ parent.setRight(null);}}
+        else if (node.getLeft() == null | node.getRight() == null){
+            if (node.getLeft() == null){
+                if (parent.getLeft() == node){parent.setLeft(node.getRight());}
+                else{parent.setRight(node.getRight());}
+                node.getRight().setParent(parent);}
        else{
-               if(parent.left == node){
-    parent.left = node.left;}
-           else{
-    parent.right = node.left;}
-    node.left.parent = parent;}}
-   else{
-    Node successor = next(node);
-    node.key = successor.key;
-     if (successor.parent.left == successor){
-    successor.parent.left = successor.right;
-       if (successor.right != null){
-    successor.right.parent = successor.parent;}}
-     else{
-    successor.parent.right = successor.right;
-       if (successor.right != null){
-    successor.right.parent = successor.parent;}}}
-}
+           if(parent.getLeft() == node){ parent.setLeft(node.getLeft());}
+           else{ parent.setRight(node.getLeft());}
+           node.getLeft().setParent(parent);}}
+       else{
+            Node successor = next(node);
+            node.setKey(successor.getKey());
+            if (successor.getParent().getLeft() == successor){
+                successor.getParent().setLeft(successor.getRight());
+                if (successor.getRight() != null){
+                    successor.getRight().setParent(successor.getParent());}}
+            else{
+                successor.getParent().setRight(successor.getRight());
+                if (successor.getRight() != null){
+                    successor.getRight().setParent(successor.getParent());}}}
+       return parent;
+    }
 }
 

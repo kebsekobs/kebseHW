@@ -15,6 +15,10 @@ public class Node {
         return parent;
     }
 
+    public void setParent(Node nParent) {
+        this.parent = nParent;
+    }
+
     public Node getLeft() {
         return left;
     }
@@ -37,6 +41,10 @@ public class Node {
 
     public String getKey() {
         return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 
 

@@ -1,12 +1,40 @@
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import mainCode.BinarySearchTree;
+import code.BinarySearchTree;
 
 public class TestBinarySearchTree extends Assertions {
-    @Test
-    public void test_add_first_and_last_and_get_first_and_last(){
+
+    private BinarySearchTree createBinaryTree() {
         BinarySearchTree binarySearchTree = new BinarySearchTree();
-        binarySearchTree.insert(1, "hah");
-        binarySearchTree.insert(21, "hih");
+        binarySearchTree.insert("kebs");
+        binarySearchTree.insert("kobs");
+        binarySearchTree.insert("kabs");
+        binarySearchTree.insert("kubs");
+        binarySearchTree.insert("kibs");
+        binarySearchTree.insert("kebe");
+        binarySearchTree.insert("bebe");
+        return binarySearchTree;
+    }
+    @Test
+    public void max(){
+        BinarySearchTree binarySearchTree = createBinaryTree();
+        assertEquals("kubs", binarySearchTree.maximum());
+    }
+
+    @Test
+    public void min(){
+        BinarySearchTree binarySearchTree = createBinaryTree();
+        assertEquals("bebe", binarySearchTree.minimum());
+    }
+
+    @Test
+    public void delete(){
+        BinarySearchTree binarySearchTree = createBinaryTree();
+        assertEquals("bebe", binarySearchTree.minimum());
+        assertEquals("kubs", binarySearchTree.maximum());
+        binarySearchTree.delete("bebe");
+        binarySearchTree.delete("kubs");
+        assertEquals("kabs", binarySearchTree.minimum());
+        assertEquals("kobs", binarySearchTree.maximum());
     }
 }

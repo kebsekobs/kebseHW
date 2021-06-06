@@ -35,13 +35,14 @@ public class OffsetHashTable<T> {
     }
 
     public void remove(int key) {
-        int newKey = key + 1;
-        while (values[newKey] == null | keys[newKey] != keys[key]){
+        int removedKey = index(hash(key));
+        int newKey = removedKey + 1;
+        while (values[newKey] == null | keys[newKey] != keys[removedKey]){
             if (values[newKey] == null){
-                values[key] = null;
+                values[removedKey] = null;
                 return;}
             newKey++;}
-        values[key] = values[newKey];
+        values[removedKey] = values[newKey];
         remove(newKey);
     }
 

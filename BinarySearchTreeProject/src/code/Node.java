@@ -1,20 +1,22 @@
-package mainCode;
+package code;
 
 public class Node {
     private Node parent, left, right;
     private String key;
-    private int balance;
 
 
     public Node(String key, Node parent) {
         this.key = key;
         this.parent = parent;
         this.left = this.right = null;
-        this.balance = 0;
     }
 
     public Node getParent() {
         return parent;
+    }
+
+    public void setParent(Node nParent) {
+        this.parent = nParent;
     }
 
     public Node getLeft() {
@@ -37,17 +39,14 @@ public class Node {
             nRight.parent = this;
     }
 
-    public void setBalance(int balance) {
-        this.balance = balance;
-    }
-
     public String getKey() {
         return key;
     }
 
-    public int getBalance() {
-        return balance;
+    public void setKey(String key) {
+        this.key = key;
     }
+
 
 
 

@@ -31,4 +31,23 @@ public class ListHashTable<K, T> {
         data.set(index, node);
         return null;
     }
+
+    public T remove(K key) {
+        DoubleLinkedListElement<K, T> node = getNodeForKey(key);
+        if (node == null) {
+            return null;
+        }
+
+        if (node.prev != null) {
+            node.prev.next = node.next;
+        } else {
+            int hashKey = getIndexForKey(key);
+            data.set(hashKey, node.next);
+        }
+
+        if (node.next != null) {
+            node.next.prev = node.prev;
+        }
+        return node.value;
+    }
 }

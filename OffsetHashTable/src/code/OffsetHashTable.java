@@ -34,6 +34,18 @@ public class OffsetHashTable<T> {
         }
     }
 
+    public void remove(int key) {
+        int newKey = key + 1;
+        while (values[newKey] == null | keys[newKey] != keys[key]){
+            if (values[newKey] == null){
+                values[key] = null;
+                return;}
+            newKey++;}
+        values[key] = values[newKey];
+        remove(newKey);
+    }
+
+
     boolean containsKey(int key) {
         for (int i = index(hash(key)); ; i++) {
             if (i == size) i = 0;

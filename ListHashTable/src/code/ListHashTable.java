@@ -50,4 +50,11 @@ public class ListHashTable<K, T> {
         }
         return node.value;
     }
+
+    public T get(K key) {
+        if (key == null) return null;
+        DoubleLinkedListElement<K, T> node = getNodeForKey(key);
+        return node == null ? null : node.value;
+    }
+
 }

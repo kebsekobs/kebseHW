@@ -69,4 +69,7 @@ public class ListHashTable<K, T> {
         return null;
     }
 
+    public int getIndexForKey(K key) {
+        return Math.abs(key.hashCode() % data.size());
+    }
 }

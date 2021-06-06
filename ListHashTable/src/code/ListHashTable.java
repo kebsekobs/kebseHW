@@ -57,4 +57,16 @@ public class ListHashTable<K, T> {
         return node == null ? null : node.value;
     }
 
+    private DoubleLinkedListElement<K, T> getNodeForKey(K key) {
+        int index = getIndexForKey(key);
+        DoubleLinkedListElement<K, T> current = data.get(index);
+        while (current != null) {
+            if (current.key == key) {
+                return current;
+            }
+            current = current.next;
+        }
+        return null;
+    }
+
 }

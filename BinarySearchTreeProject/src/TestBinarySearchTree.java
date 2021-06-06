@@ -1,6 +1,6 @@
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import code.BinarySearchTree;
+import mainCode.BinarySearchTree;
 
 public class TestBinarySearchTree extends Assertions {
     @Test

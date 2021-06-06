@@ -1,4 +1,4 @@
-package code;
+package mainCode;
 
 public class Tree {
     private Node root;

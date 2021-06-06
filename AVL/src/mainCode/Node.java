@@ -1,4 +1,4 @@
-package code;
+package mainCode;
 
 public class Node {
     private Node parent, left, right;

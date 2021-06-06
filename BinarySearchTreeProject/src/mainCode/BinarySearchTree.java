@@ -1,11 +1,9 @@
-package code;
-
-import org.jetbrains.annotations.NotNull;
+package mainCode;
 
 public class BinarySearchTree {
     private Node root = null;
 
-    public Node search(Node node, @NotNull Integer key){
+    public Node search(Node node, Integer key){
             if (node == null | key.equals(node.key)){
       return node;}
    if (key < node.key)

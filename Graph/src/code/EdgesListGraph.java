@@ -1,14 +1,17 @@
-/*package code;
+package code;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class EdgesListGraph {
-    ArrayList list;
+    ArrayList<ArrayList<Integer>> list;
 
-    public AjacencyListGraph(int vertex) {
-        list = new ArrayList<DoubleLinkedListElement>();
+    public EdgesListGraph(int vertex) {
+        list = new ArrayList<ArrayList<Integer>>();
         list.ensureCapacity(vertex);
-        for (int i = 0; i < vertex * 3; i += 3) {
-            list.add(null);
+        for (int i = 0; i < vertex; i++) {
+            Array.set(list, i, new ArrayList<Integer>());
         }
     }
-}*/
+
+
+}

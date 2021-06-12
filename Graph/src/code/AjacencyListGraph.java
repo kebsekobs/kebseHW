@@ -3,9 +3,11 @@ import java.util.ArrayList;
 
 public class AjacencyListGraph {
     ArrayList<DoubleLinkedListElement> list;
+    int vertex;
 
     public AjacencyListGraph(int vertex) {
         list = new ArrayList<DoubleLinkedListElement>();
+        this.vertex = vertex;
         list.ensureCapacity(vertex);
         for (int i = 0; i < vertex; i++) {
             list.add(null);
@@ -13,6 +15,7 @@ public class AjacencyListGraph {
     }
 
     public void addEdge(int start, int weight, int finish) {
+        if(start >= vertex | finish >= vertex | start < 0 | finish < 0){throwException();}
         DoubleLinkedListElement node = getNodeForKeyAndTo(start, finish);
         if (node != null) {
             node.weight = weight;
@@ -29,6 +32,7 @@ public class AjacencyListGraph {
     }
 
     public void removeEdge(int start, int finish) {
+        if(start >= vertex | finish >= vertex | start < 0 | finish < 0){throwException();}
         DoubleLinkedListElement node = getNodeForKeyAndTo(start, finish);
         if (node == null) {
             return;
@@ -47,20 +51,23 @@ public class AjacencyListGraph {
     }
 
     public int getEdge(int start, int finish) {
+        if(start >= vertex | finish >= vertex | start < 0 | finish < 0){throwException();}
         DoubleLinkedListElement node = getNodeForKeyAndTo(start, finish);
         return node == null ? 0 : node.weight;
     }
 
     public void addVertex(){
         list.add(null);
+        vertex++;
     }
 
     public void cleanUp(){
         list = new ArrayList<DoubleLinkedListElement>();
+        vertex = 0;
     }
 
     public int getVertex(){
-        return list.size();
+        return vertex;
     }
 
 
@@ -75,5 +82,8 @@ public class AjacencyListGraph {
         return null;
     }
 
+    public void throwException(){
+        throw new ArrayIndexOutOfBoundsException("ЭЭээээээ куда прёшь??!?!?!??!?");
+    }
 
 }

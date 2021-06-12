@@ -48,10 +48,20 @@ public class AjacencyListGraph {
 
     public int getEdge(int start, int finish) {
         DoubleLinkedListElement node = getNodeForKeyAndTo(start, finish);
-        return node == null ? null : node.weight;
+        return node == null ? 0 : node.weight;
     }
 
+    public void addVertex(){
+        list.add(null);
+    }
 
+    public void cleanUp(){
+        list = new ArrayList<DoubleLinkedListElement>();
+    }
+
+    public int getVertex(){
+        return list.size();
+    }
 
 
     private DoubleLinkedListElement getNodeForKeyAndTo(int start, int finish) {

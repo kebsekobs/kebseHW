@@ -4,14 +4,14 @@ public class DoubleLinkedListElement{
     DoubleLinkedListElement next;
     DoubleLinkedListElement prev;
     int weight;
-    int to;
-    int key;
+    int finish;
+    int start;
 
-    public DoubleLinkedListElement(DoubleLinkedListElement Prev, DoubleLinkedListElement Next, int Weight, int To, int Key) {
+    public DoubleLinkedListElement(DoubleLinkedListElement Prev, DoubleLinkedListElement Next, int Weight, int Finish, int Start) {
         prev = Prev;
         next = Next;
         weight = Weight;
-        to = To;
-        key = Key;
+        finish = Finish;
+        start = Start;
     }
 }

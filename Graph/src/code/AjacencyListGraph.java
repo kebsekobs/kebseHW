@@ -3,7 +3,6 @@ import java.util.ArrayList;
 
 public class AjacencyListGraph {
     ArrayList<DoubleLinkedListElement> list;
-    int vertex;
 
     public AjacencyListGraph(int vertex) {
         list = new ArrayList<DoubleLinkedListElement>();
@@ -13,31 +12,52 @@ public class AjacencyListGraph {
         }
     }
 
-    public void addEdge(int key, int weight, int to) {
-        DoubleLinkedListElement node = getNodeForKey(key);
+    public void addEdge(int start, int weight, int finish) {
+        DoubleLinkedListElement node = getNodeForKeyAndTo(start, finish);
         if (node != null) {
             node.weight = weight;
-            node.to = to;
             return;
         }
 
-        node = new DoubleLinkedListElement(null, null, weight, to, key);
-        if (list.get(key) != null) {
-            node.next = list.get(key);
+        node = new DoubleLinkedListElement(null, null, weight, finish, start);
+        if (list.get(start) != null) {
+            node.next = list.get(start);
             node.next.prev = node;
         }
-        list.set(key, node);
+        list.set(start, node);
         return;
+    }
+
+    public void removeEdge(int start, int finish) {
+        DoubleLinkedListElement node = getNodeForKeyAndTo(start, finish);
+        if (node == null) {
+            return;
+        }
+
+        if (node.prev != null) {
+            node.prev.next = node.next;
+        } else {
+            list.set(start, node.next);
+        }
+
+        if (node.next != null) {
+            node.next.prev = node.prev;
+        }
+        return;
+    }
+
+    public int getEdge(int start, int finish) {
+        DoubleLinkedListElement node = getNodeForKeyAndTo(start, finish);
+        return node == null ? null : node.weight;
     }
 
 
 
 
-
-    private DoubleLinkedListElement getNodeForKey(int key) {
-        DoubleLinkedListElement current = list.get(key);
+    private DoubleLinkedListElement getNodeForKeyAndTo(int start, int finish) {
+        DoubleLinkedListElement current = list.get(start);
         while (current != null) {
-            if (current.key == key) {
+            if (current.finish == finish) {
                 return current;
             }
             current = current.next;

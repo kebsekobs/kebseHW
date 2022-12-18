@@ -37,4 +37,18 @@ public class TestBinarySearchTree extends Assertions {
         assertEquals("kabs", binarySearchTree.minimum());
         assertEquals("kobs", binarySearchTree.maximum());
     }
+
+    @Test
+    public void ceil_and_floor(){
+        BinarySearchTree binarySearchTree = createBinaryTree();
+        assertEquals("kobs", binarySearchTree.ceil("klbs"));
+        assertEquals("bebe", binarySearchTree.ceil("babs"));
+        assertEquals("kubs", binarySearchTree.floor("kubs"));
+        assertEquals("kubs", binarySearchTree.ceil("kubs"));
+        assertEquals("kabs", binarySearchTree.floor("kbbs"));
+        assertNull(binarySearchTree.ceil("zzzzzzzz"));
+        assertEquals("kubs", binarySearchTree.floor("zzzzzzz"));
+        assertEquals("bebe", binarySearchTree.ceil("aaaaaa"));
+        assertNull(binarySearchTree.floor("aaaaaa"));
+    }
 }

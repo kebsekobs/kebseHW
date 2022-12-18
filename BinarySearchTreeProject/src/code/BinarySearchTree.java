@@ -1,20 +1,10 @@
-<<<<<<< HEAD:BinarySearchTreeProject/src/mainCode/BinarySearchTree.java
-package mainCode;
-=======
 package code;
->>>>>>> 467ef5df636b64f9e3ec6e39d3da31b730d92eae:BinarySearchTreeProject/src/code/BinarySearchTree.java
+
+import java.util.Objects;
 
 public class BinarySearchTree {
     private Node root = null;
 
-<<<<<<< HEAD:BinarySearchTreeProject/src/mainCode/BinarySearchTree.java
-    public Node search(Node node, Integer key){
-            if (node == null | key.equals(node.key)){
-      return node;}
-   if (key < node.key)
-      return search(node.left, key);
-   else{ return search(node.right, key);}}
-=======
     public Node search(String key) {
         if (root == null)
             return null;
@@ -35,7 +25,6 @@ public class BinarySearchTree {
     private Node minimumRec(Node node){
             if (node.getLeft() == null){ return node;}
             return minimumRec(node.getLeft());}
->>>>>>> 467ef5df636b64f9e3ec6e39d3da31b730d92eae:BinarySearchTreeProject/src/code/BinarySearchTree.java
 
     public String maximum() {
         if (root == null)
@@ -131,6 +120,69 @@ public class BinarySearchTree {
 
         node.setRight(deleteRec(node.getRight(), key));
             return node;
+    }
+
+    public String floor(String key){
+        if (root == null)
+            return null;
+        return floorRec(root, key);
+    }
+
+    private String floorRec(Node node,String key){
+        if (node == null) {
+            return null;
+        }
+        if (Objects.equals(node.getKey(), key)) {
+            return node.getKey();
+        }
+
+        // If root's key is smaller,
+        // ceil must be in right subtree
+        if (key.compareTo(node.getKey()) < 0) {
+            return floorRec(node.getLeft(), key);
+        }
+
+        // Else, either left subtree or root
+        // has the ceil value
+        else{
+            String floor = floorRec(node.getRight(), key);
+            if(floor == null){
+                return node.getKey();
+            }
+            return (key.compareTo(node.getKey()) >= 0) ? floor : node.getKey();
+        }
+
+    }
+
+    public String ceil(String key){
+        if (root == null)
+            return null;
+        return ceilRec(root, key);
+    }
+
+    private String ceilRec(Node node,String key){
+        if (node == null) {
+            return null;
+        }
+        if (Objects.equals(node.getKey(), key)) {
+            return node.getKey();
+        }
+
+        // If root's key is smaller,
+        // ceil must be in right subtree
+        if (key.compareTo(node.getKey()) > 0) {
+            return ceilRec(node.getRight(), key);
+        }
+
+        // Else, either left subtree or root
+        // has the ceil value
+        else{
+            String ceil = ceilRec(node.getLeft(), key);
+            if(ceil == null){
+                return node.getKey();
+            }
+            return (key.compareTo(node.getKey()) <= 0) ? ceil : node.getKey();
+        }
     }
 }
 

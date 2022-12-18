@@ -136,14 +136,12 @@ public class BinarySearchTree {
             return node.getKey();
         }
 
-        // If root's key is smaller,
-        // ceil must be in right subtree
+
         if (key.compareTo(node.getKey()) < 0) {
             return floorRec(node.getLeft(), key);
         }
 
-        // Else, either left subtree or root
-        // has the ceil value
+
         else{
             String floor = floorRec(node.getRight(), key);
             if(floor == null){
@@ -168,14 +166,12 @@ public class BinarySearchTree {
             return node.getKey();
         }
 
-        // If root's key is smaller,
-        // ceil must be in right subtree
+
         if (key.compareTo(node.getKey()) > 0) {
             return ceilRec(node.getRight(), key);
         }
 
-        // Else, either left subtree or root
-        // has the ceil value
+
         else{
             String ceil = ceilRec(node.getLeft(), key);
             if(ceil == null){
